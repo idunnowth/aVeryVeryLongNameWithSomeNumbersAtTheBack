@@ -82,7 +82,7 @@ function UpcomingActivitiesCard2(props) {
         <View style={styles.cardButtonContainer}>
           <View>
             <TouchableOpacity>
-              <Fontisto name="angle-right" size={24} color="black" />
+              <Fontisto name="angle-right" size={20} color="black" />
               {/* <Text style={styles.cardButtonText}>Register</Text> */}
               {/* <Text style={styles.cardButtonText}>More</Text> */}
             </TouchableOpacity>
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     //alignContent: "center",
   },
   cardTextContainer: {
-    width: "40%",
+    width: "35%",
     marginVertical: "auto",
   },
   cardButtonContainer: {
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     //backgroundColor: "#498feb",
     backgroundColor: "#fefefe",
-    paddingHorizontal: "auto",
+    //paddingHorizontal: "auto",
     borderRadius: 3,
     fontWeight: 900,
     paddingVertical: 5,

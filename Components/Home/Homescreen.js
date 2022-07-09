@@ -77,11 +77,11 @@ function UpcomingActivitiesCard2(props) {
           style={{
             width: 50,
             height: 50,
-            //borderRadius: "50%",
+            borderRadius: "50%",
             //overflow: "hidden",
             resizeMode: "contain",
             //borderWidth: 3,
-            borderColor: "red",
+            borderColor: "blue",
             marginRight: 10,
             marginVertical: "auto",
             //alignContent: "flex-start",
@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   card: {
+    backgroundColor: "#fff",
     flexDirection: "row",
     justifyContent: "space-between",
     //backgroundColor: "#fcfcfc",
