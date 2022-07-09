@@ -94,8 +94,8 @@ function UpcomingActivitiesCard2(props) {
         <View style={styles.cardButtonContainer}>
           <View>
             <TouchableOpacity>
-              <Text style={{ color: "white" }}>View</Text>
-              <Text style={{ color: "white" }}>More</Text>
+              <Text style={styles.cardButtonText}>View</Text>
+              <Text style={styles.cardButtonText}>More</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -164,13 +164,18 @@ const styles = StyleSheet.create({
   cardButtonContainer: {
     flexDirection: "column",
     alignItems: "center",
-    width: "25%",
+    width: "21%",
     marginVertical: "auto",
     marginHorizontal: 5,
-    backgroundColor: "#498feb",
+    //backgroundColor: "#498feb",
+    backgroundColor: "#fefefe",
     paddingHorizontal: "auto",
-    borderRadius: 20,
-    fontWeight: 500,
+    borderRadius: 3,
+    fontWeight: 900,
     paddingVertical: 5,
+  },
+  cardButtonText:{
+    color:"#52BAEB",
+    fontsize: 14,
   },
 });
