@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useState } from "react";
 
@@ -17,6 +17,7 @@ function SearchScreen1() {
 }
 
 function SearchScreen() {
+  const [text, onChangeText] = useState("");
   const name = "John Doe";
   const UpcomingActivities = [{ org: "ACRES", role: "Animal Caretaker" }];
   //const UpcomingActivities = [];
@@ -29,7 +30,12 @@ function SearchScreen() {
         <Text style={styles.welcomeText}>Hi, {name}!</Text>
       </View> */}
       <View>
-        <Text>Search</Text>
+        {/* <Text>Search</Text> */}
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeText}
+          value={text}
+        />
       </View>
       <View style={styles.secondaryContainer}>
         {/* <Text style={styles.titleText2}>Upcoming Activities</Text> */}
@@ -91,7 +97,6 @@ function UpcomingActivitiesCard2(props) {
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
