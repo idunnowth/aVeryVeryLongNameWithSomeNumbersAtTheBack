@@ -9,6 +9,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import * as SQLite from 'expo-sqlite';
 import { useEffect } from "react";
+import RecordsNavigator from "./Components/Records/MainRecords";
+import { Octicons } from '@expo/vector-icons'; 
 
 const db = SQLite.openDatabase({
   name: 'MainDB',
