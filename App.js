@@ -7,10 +7,103 @@ import SearchNavigator from "./Components/Search/MainSearch";
 import { NavigationContainer } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from '@expo/vector-icons'; 
+import * as SQLite from 'expo-sqlite';
+import { useEffect } from "react";
+
+const db = SQLite.openDatabase({
+  name: 'MainDB',
+  location:'default',
+},
+() => {},
+error => {console.log(error)}
+);
+
+//const db = SQLite.openDatabase("db.db");
+
+
+
+
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  useEffect(() =>{
+    createTableUsers();
+    createTableOrganisation();
+    createTableRecords();
+    createTableEvents();
+    createTablePeopleAndEvents();
+  },[]);
+
+  const createTableUsers = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `CREATE TABLE IF NOT EXISTS Users
+        (Id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          Name TEXT, 
+          Password TEXT,
+          Age INTEGER
+          );`
+      )
+    })
+  }
+  
+  const createTableOrganisation = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `CREATE TABLE IF NOT EXISTS Records,
+        (Id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          OrganisationName TEXT,
+          Description TEXT,
+          Target TEXT,
+          Contact TEXT
+          );`
+      )
+    })
+  }
+  
+  const createTableEvents = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `CREATE TABLE IF NOT EXISTS Events
+        (Id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          OrganisationId INTEGER,
+          EventName TEXT,
+          EventDetails TEXT,
+          Role TEXT,
+          Date REAL,
+          NoOfPplRequired INTEGER
+        `
+      )
+    })
+  }
+  const createTableRecords = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `CREATE TABLE IF NOT EXISTS Records,
+        (Id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          UsersId INTEGER, 
+          DateOfCompletion REAL,
+          OrganisationId INTEGER,
+          Role TEXT,
+          Event TEXT,
+          NumberOfHours FLOAT,
+          Remarks TEXT,
+          );`
+      )
+    })
+  }
+  
+  const createTablePeopleAndEvents = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `CREATE TABLE IF NOT EXISTS PeopleAndEvents
+          PeopleId INTEGER,
+          EventsId INTEGER
+        `
+      )
+    })
+  }
   return (
     <NavigationContainer>
       <Tab.Navigator>
