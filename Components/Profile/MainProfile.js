@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useState } from "react";
 import * as SQLite from 'expo-sqlite';
@@ -17,8 +17,9 @@ export default function ProfileNavigator() {
 }
 
 function ProfileScreen() {
+    
   const name = "John Doe";
-  const tagline = "Lorem ipsum ipsum lorem lorem ipsum";
+  const tagline = "Lorem ipsum ipsum lorem lorem ipsum Lorem ipsum ipsum lorem lorem ipsum";
   const record = {
     org: "ACRES",
     role: "entertainer",
@@ -27,14 +28,14 @@ function ProfileScreen() {
   };
   const records = [record];
   return (
-    <View>
-      <View>
+    <View style={styles.container}>
+      <View style={[styles.secondaryContainer, styles.headerContainer]}>
         <View>
           <Image
             //source={props.picLink}
             style={{
-              width: 50,
-              height: 50,
+              width: 70,
+              height: 70,
               borderRadius: "50%",
               overflow: "hidden",
               borderWidth: 3,
@@ -45,28 +46,29 @@ function ProfileScreen() {
             }}
           />
         </View>
-        <View>
-          <Text style={{fontWeight: 700}}>{name}</Text>
-          <Text>{tagline}</Text>
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontWeight: 700 }}>{name}</Text>
+          <Text >{tagline}</Text>
         </View>
         {/* up to you to insert a line */}
-        <View></View>
-        <View>
-          {records.length === 0 ? (
-            <Text>Volunteer at Events to get a record</Text>
-          ) : (
-            records.map((reconrd) => {
-              return (
-                <UpcomingActivitiesCard2
-                  org={record.org}
-                  contribution={record.contribution}
-                  date={record.date}
-                  role={record.role}
-                />
-              );
-            })
-          )}
-        </View>
+        
+      </View>
+      <View></View>
+      <View style ={[styles.secondaryContainer] }>
+        {records.length === 0 ? (
+          <Text>Volunteer at Events to get a record</Text>
+        ) : (
+          records.map((reconrd) => {
+            return (
+              <UpcomingActivitiesCard2
+                org={record.org}
+                contribution={record.contribution}
+                date={record.date}
+                role={record.role}
+              />
+            );
+          })
+        )}
       </View>
     </View>
   );
@@ -108,7 +110,7 @@ function UpcomingActivitiesCard2(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    //backgroundColor: "#fff",
     alignItems: "center",
     //justifyContent: 'center',
     //margin : "20 0 0 0",
@@ -118,8 +120,13 @@ const styles = StyleSheet.create({
   secondaryContainer: {
     width: "85%",
     marginTop: 30,
+
     //maringBottom: 10,
     //padding: 5,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent:"space-around",
   },
   welcomeText: {
     textAlign: "center",
