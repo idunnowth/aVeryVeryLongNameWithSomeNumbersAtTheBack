@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useState } from "react";
 
@@ -8,6 +8,7 @@ export default function ProfileNavigator() {
 }
 
 function ProfileScreen() {
+    
   const name = "John Doe";
   const tagline = "Lorem ipsum ipsum lorem lorem ipsum Lorem ipsum ipsum lorem lorem ipsum";
   const record = {

@@ -1,5 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Fontisto } from "@expo/vector-icons";
 import { useState } from "react";
@@ -18,6 +25,7 @@ export default function RecordsNavigator() {
 // }
 
 function RecordsScreen() {
+  const [text, setText] = useState("Search");
   const name = "John Doe";
   const UpcomingActivities = [{ org: "ACRES", target: "Animals" }];
   //const UpcomingActivities = [];
@@ -30,7 +38,13 @@ function RecordsScreen() {
         <Text style={styles.welcomeText}>Hi, {name}!</Text>
       </View> */}
       <View>
-        <Text>Search</Text>
+        {/* <Text>Search</Text> */}
+        <TextInput
+          style={styles.input}
+          onChangeText={setText(text)}
+          value={text}
+          onFocus={setText("")}
+        />
       </View>
       <View style={styles.secondaryContainer}>
         {/* <Text style={styles.titleText2}>Upcoming Activities</Text> */}
