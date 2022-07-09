@@ -119,7 +119,7 @@ function NewActivitiesCard(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    //backgroundColor: "#fff",
     alignItems: "center",
     //justifyContent: 'center',
     //margin : "20 0 0 0",
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#fcfcfc",
+    //backgroundColor: "#fcfcfc",
     marginVertical: 10,
     borderRadius: 15,
     shadowColor: "#efefef",
