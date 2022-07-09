@@ -136,7 +136,7 @@ export default function App() {
   // const addOrganisation1 = () => {
   //   db.transaction((tx) => {
   //     tx.executeSql(
-  //       `INSERT OR IGNORE INTO Organisation (OrganisationName,Description,) VALUES (Thom,12345678,20)
+  //       `INSERT OR IGNORE INTO Organisation (OrganisationName,Description,Target,Contact) VALUES ('Tho Pte Ltd','Find Volunteers for the greater good','Target in text','212112121')
   //       `,
   //     )
   //   })
