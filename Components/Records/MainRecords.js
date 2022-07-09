@@ -3,6 +3,17 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Fontisto } from "@expo/vector-icons";
 import { useState } from "react";
+import * as SQLite from 'expo-sqlite';
+
+
+const db = SQLite.openDatabase({
+  name: 'MainDB',
+  location:'default',
+},
+() => {},
+error => {console.log(error)}
+);
+
 
 export default function RecordsNavigator() {
   return <RecordsScreen />;

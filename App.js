@@ -8,12 +8,10 @@ import RecordsNavigator from "./Components/Records/MainRecords";
 import ProfileNavigator from "./Components/Profile/MainProfile";
 import { NavigationContainer } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
-import { FontAwesome5 } from '@expo/vector-icons'; 
-import * as SQLite from 'expo-sqlite';
 import { useEffect } from "react";
-import RecordsNavigator from "./Components/Records/MainRecords";
 import { Octicons } from '@expo/vector-icons'; 
 import { FontAwesome5 } from "@expo/vector-icons";
+import * as SQLite from 'expo-sqlite';
 
 
 const db = SQLite.openDatabase({
@@ -43,9 +41,9 @@ export default function App() {
       tx.executeSql(
         `CREATE TABLE IF NOT EXISTS Users
         (Id INTEGER PRIMARY KEY AUTOINCREMENT, 
-          Name TEXT, 
-          Password TEXT,
-          Age INTEGER
+          Name TEXT NOT NULL, 
+          Password TEXT NOT NULL,
+          Age INTEGER NOT NULL
           );`
       )
     })
@@ -56,10 +54,10 @@ export default function App() {
       tx.executeSql(
         `CREATE TABLE IF NOT EXISTS Records,
         (Id INTEGER PRIMARY KEY AUTOINCREMENT, 
-          OrganisationName TEXT,
-          Description TEXT,
-          Target TEXT,
-          Contact TEXT
+          OrganisationName TEXT NOT NULL,
+          Description TEXT NOT NULL,
+          Target TEXT NOT NULL,
+          Contact TEXT NOT NULL
           );`
       )
     })
@@ -70,12 +68,12 @@ export default function App() {
       tx.executeSql(
         `CREATE TABLE IF NOT EXISTS Events
         (Id INTEGER PRIMARY KEY AUTOINCREMENT, 
-          OrganisationId INTEGER,
-          EventName TEXT,
-          EventDetails TEXT,
-          Role TEXT,
-          Date REAL,
-          NoOfPplRequired INTEGER
+          OrganisationId INTEGER NOT NULL, 
+          EventName TEXT NOT NULL,
+          EventDetails TEXT NOT NULL,
+          Role TEXT NOT NULL,
+          Date REAL NOT NULL,
+          NoOfPplRequired INTEGER NOT NULL
         `
       )
     })
@@ -85,13 +83,13 @@ export default function App() {
       tx.executeSql(
         `CREATE TABLE IF NOT EXISTS Records,
         (Id INTEGER PRIMARY KEY AUTOINCREMENT, 
-          UsersId INTEGER, 
-          DateOfCompletion REAL,
-          OrganisationId INTEGER,
-          Role TEXT,
-          Event TEXT,
-          NumberOfHours FLOAT,
-          Remarks TEXT,
+          UsersId INTEGER NOT NULL, 
+          DateOfCompletion REAL NOT NULL,
+          OrganisationId INTEGER NOT NULL,
+          Role TEXT NOT NULL,
+          Event TEXT NOT NULL,
+          NumberOfHours FLOAT NOT NULL,
+          Remarks TEXT NOT NULL,
           );`
       )
     })
@@ -101,12 +99,48 @@ export default function App() {
     db.transaction((tx) => {
       tx.executeSql(
         `CREATE TABLE IF NOT EXISTS PeopleAndEvents
-          PeopleId INTEGER,
-          EventsId INTEGER
+          PeopleId INTEGER NOT NULL,
+          EventsId INTEGER NOT NULL
         `
       )
     })
   }
+
+  const addUsers1 = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `INSERT OR IGNORE INTO Users (Name,Password,Age) VALUES (Thomas,12345678,18)
+        `,
+      )
+    })
+  }
+
+  const addUsers2 = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `INSERT OR IGNORE INTO Users (Name,Password,Age) VALUES (Thoma,12345678,19)
+        `,
+      )
+    })
+  }
+
+  const addUsers3 = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `INSERT OR IGNORE INTO Users (Name,Password,Age) VALUES (Thom,12345678,20)
+        `,
+      )
+    })
+  }
+
+  // const addOrganisation1 = () => {
+  //   db.transaction((tx) => {
+  //     tx.executeSql(
+  //       `INSERT OR IGNORE INTO Organisation (OrganisationName,Description,) VALUES (Thom,12345678,20)
+  //       `,
+  //     )
+  //   })
+  // }
   return (
     <NavigationContainer>
       <Tab.Navigator>
