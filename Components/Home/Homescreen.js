@@ -119,7 +119,7 @@ function NewActivitiesCard(props) {
     <TouchableOpacity>
       <View style={styles.card}>
         <Text>{props.eventname}</Text>
-        <Text>I am a new activity card</Text>
+        {/* <Text>I am a new activity card</Text> */}
       </View>
     </TouchableOpacity>
   );

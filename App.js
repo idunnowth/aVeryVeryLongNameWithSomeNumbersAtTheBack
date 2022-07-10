@@ -6,6 +6,7 @@ import FriendsNavigator from "./Components/Friends/Mainfriends";
 import SearchNavigator from "./Components/Search/MainSearch";
 import RecordsNavigator from "./Components/Records/MainRecords";
 import ProfileNavigator from "./Components/Profile/MainProfile";
+import OragnisationScreen from "./Components/Records/Organisation";
 import { NavigationContainer } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useEffect } from "react";
