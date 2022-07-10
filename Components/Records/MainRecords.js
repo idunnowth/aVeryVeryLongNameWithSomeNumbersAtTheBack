@@ -11,6 +11,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Fontisto } from "@expo/vector-icons";
 import { useState } from "react";
 import * as SQLite from "expo-sqlite";
+import { createStackNavigator } from '@react-navigation/stack';
+import OragnisationScreen from "./Organisation";
+
+
+const Stack = createStackNavigator();
 
 //import { ListItem, SearchBar } from "react-native-elements";
 
@@ -26,7 +31,14 @@ const db = SQLite.openDatabase(
 );
 
 export default function RecordsNavigator() {
-  return <RecordsScreen />;
+  return (
+    <Stack.Navigator screenOptions={{
+        headerShown: false
+      }}>
+      <Stack.Screen name="Main" component={RecordsScreen} />
+      <Stack.Screen name="Organisation" component={OragnisationScreen} />
+    </Stack.Navigator>
+  );
 }
 
 // function RecordsScreen(){
@@ -38,7 +50,7 @@ export default function RecordsNavigator() {
 //     );
 // }
 
-function RecordsScreen() {
+function RecordsScreen({navigation}) {
   const [text, setText] = useState("");
   const [dataArray, SetDataArray] = useState([]);
   db.transaction((tx) => {
@@ -90,6 +102,7 @@ function RecordsScreen() {
             UpcomingActivities.map((activity) => {
               return (
                 <UpcomingActivitiesCard2
+                    navigation ={navigation}
                   eventname={activity.target}
                   org={activity.org}
                 />
@@ -129,7 +142,7 @@ function UpcomingActivitiesCard2(props) {
         </View>
         <View style={styles.cardButtonContainer}>
           <View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress ={()=> props.navigation.navigate("Organisation")}>
               <Fontisto name="angle-right" size={20} color="black" />
               {/* <Text style={styles.cardButtonText}>Register</Text> */}
               {/* <Text style={styles.cardButtonText}>More</Text> */}
