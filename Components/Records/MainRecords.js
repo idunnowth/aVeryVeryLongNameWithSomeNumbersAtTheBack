@@ -10,20 +10,20 @@ import {
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Fontisto } from "@expo/vector-icons";
 import { useState } from "react";
-import * as SQLite from 'expo-sqlite';
+import * as SQLite from "expo-sqlite";
 
 //import { ListItem, SearchBar } from "react-native-elements";
 
-
-
-const db = SQLite.openDatabase({
-  name: 'MainDB',
-  location:'default',
-},
-() => {},
-error => {console.log(error)}
+const db = SQLite.openDatabase(
+  {
+    name: "MainDB",
+    location: "default",
+  },
+  () => {},
+  (error) => {
+    console.log(error);
+  }
 );
-
 
 export default function RecordsNavigator() {
   return <RecordsScreen />;
@@ -39,19 +39,14 @@ export default function RecordsNavigator() {
 // }
 
 function RecordsScreen() {
-  const [text, setText] = useState("Search");
+  const [text, setText] = useState("");
   const [dataArray, SetDataArray] = useState([]);
   db.transaction((tx) => {
-    tx.executeSql(
-      "SELECT * FROM Organisation",
-      [],
-      (tx,results) => {
-        var len = results.rows.length;
-        if (len > 0)
-        SetDataArray(results)//need
-      }
-    )
-  })///db transaction is async -- need a promise
+    tx.executeSql("SELECT * FROM Organisation", [], (tx, results) => {
+      var len = results.rows.length;
+      if (len > 0) SetDataArray(results); //need
+    });
+  }); ///db transaction is async -- need a promise
   const name = "John Doe";
   const UpcomingActivities = [{ org: "ACRES", target: "Animals" }];
   //const UpcomingActivities = [];
@@ -61,10 +56,15 @@ function RecordsScreen() {
   //   //setText(text);
   //   console.log(text);
   // },[text])
-  const UpdateSearch = (e) => {
-    setText(e.target.value);
+  const _searchContact = (text) => {
     console.log(text);
-  }
+    setText(text);
+  };
+  //   const UpdateSearch = (e) => {
+  //     console.log(text);
+  //     setText(e.target.value);
+  //     console.log(text);
+  //   };
   return (
     <View style={styles.container}>
       {/* <View>
@@ -75,11 +75,10 @@ function RecordsScreen() {
         <TextInput
           //placeholder = "search here..."
           style={styles.input}
-          onChangeText={UpdateSearch}
+          onChangeText={_searchContact}
           value={text}
           // onFocus={setText("")}
         />
-
       </View>
       <View style={styles.secondaryContainer}>
         {/* <Text style={styles.titleText2}>Upcoming Activities</Text> */}
