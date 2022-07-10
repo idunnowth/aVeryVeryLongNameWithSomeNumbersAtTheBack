@@ -8,12 +8,139 @@ import RecordsNavigator from "./Components/Records/MainRecords";
 import ProfileNavigator from "./Components/Profile/MainProfile";
 import { NavigationContainer } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
+import { useEffect } from "react";
+import { Octicons } from '@expo/vector-icons'; 
 import { FontAwesome5 } from "@expo/vector-icons";
-import { Octicons } from "@expo/vector-icons";
+import * as SQLite from 'expo-sqlite';
+
+
+const db = SQLite.openDatabase({
+  name: 'MainDB',
+  location:'default',
+},
+() => {},
+error => {console.log(error)}
+);
+
+//const db = SQLite.openDatabase("db.db");
+
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  useEffect(() =>{
+    createTableUsers();
+    createTableOrganisation();
+    createTableRecords();
+    createTableEvents();
+    createTablePeopleAndEvents();
+  },[]);
+
+  const createTableUsers = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `CREATE TABLE IF NOT EXISTS Users
+        (Id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          Name TEXT NOT NULL, 
+          Password TEXT NOT NULL,
+          Age INTEGER NOT NULL
+          );`
+      )
+    })
+  }
+  
+  const createTableOrganisation = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `CREATE TABLE IF NOT EXISTS Records,
+        (Id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          OrganisationName TEXT NOT NULL,
+          Description TEXT NOT NULL,
+          Target TEXT NOT NULL,
+          Contact TEXT NOT NULL
+          );`
+      )
+    })
+  }
+  
+  const createTableEvents = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `CREATE TABLE IF NOT EXISTS Events
+        (Id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          OrganisationId INTEGER NOT NULL, 
+          EventName TEXT NOT NULL,
+          EventDetails TEXT NOT NULL,
+          Role TEXT NOT NULL,
+          Date REAL NOT NULL,
+          NoOfPplRequired INTEGER NOT NULL
+        `
+      )
+    })
+  }
+  const createTableRecords = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `CREATE TABLE IF NOT EXISTS Records,
+        (Id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          UsersId INTEGER NOT NULL, 
+          DateOfCompletion REAL NOT NULL,
+          OrganisationId INTEGER NOT NULL,
+          Role TEXT NOT NULL,
+          Event TEXT NOT NULL,
+          NumberOfHours FLOAT NOT NULL,
+          Remarks TEXT NOT NULL,
+          );`
+      )
+    })
+  }
+  
+  const createTablePeopleAndEvents = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `CREATE TABLE IF NOT EXISTS PeopleAndEvents
+          PeopleId INTEGER NOT NULL,
+          EventsId INTEGER NOT NULL
+        `
+      )
+    })
+  }
+
+  const addUsers1 = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `INSERT OR IGNORE INTO Users (Name,Password,Age) VALUES (Thomas,12345678,18)
+        `,
+      )
+    })
+  }
+
+  const addUsers2 = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `INSERT OR IGNORE INTO Users (Name,Password,Age) VALUES (Thoma,12345678,19)
+        `,
+      )
+    })
+  }
+
+  const addUsers3 = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `INSERT OR IGNORE INTO Users (Name,Password,Age) VALUES (Thom,12345678,20)
+        `,
+      )
+    })
+  }
+
+  // const addOrganisation1 = () => {
+  //   db.transaction((tx) => {
+  //     tx.executeSql(
+  //       `INSERT OR IGNORE INTO Organisation (OrganisationName,Description,Target,Contact) VALUES ('Tho Pte Ltd','Find Volunteers for the greater good','Target in text','212112121')
+  //       `,
+  //     )
+  //   })
+  // }
   return (
     <NavigationContainer>
       <Tab.Navigator>

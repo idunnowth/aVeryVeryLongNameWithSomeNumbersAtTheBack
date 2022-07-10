@@ -2,7 +2,16 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useState } from "react";
+import * as SQLite from 'expo-sqlite';
 
+
+const db = SQLite.openDatabase({
+  name: 'MainDB',
+  location:'default',
+},
+() => {},
+error => {console.log(error)}
+);
 export default function ProfileNavigator() {
   return <ProfileScreen />;
 }

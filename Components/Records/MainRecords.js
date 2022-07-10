@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+//import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -10,6 +10,20 @@ import {
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Fontisto } from "@expo/vector-icons";
 import { useState } from "react";
+import * as SQLite from 'expo-sqlite';
+
+//import { ListItem, SearchBar } from "react-native-elements";
+
+
+
+const db = SQLite.openDatabase({
+  name: 'MainDB',
+  location:'default',
+},
+() => {},
+error => {console.log(error)}
+);
+
 
 export default function RecordsNavigator() {
   return <RecordsScreen />;
@@ -26,12 +40,31 @@ export default function RecordsNavigator() {
 
 function RecordsScreen() {
   const [text, setText] = useState("Search");
+  const [dataArray, SetDataArray] = useState([]);
+  db.transaction((tx) => {
+    tx.executeSql(
+      "SELECT * FROM Organisation",
+      [],
+      (tx,results) => {
+        var len = results.rows.length;
+        if (len > 0)
+        SetDataArray(results)//need
+      }
+    )
+  })///db transaction is async -- need a promise
   const name = "John Doe";
   const UpcomingActivities = [{ org: "ACRES", target: "Animals" }];
   //const UpcomingActivities = [];
   const NewActivities = ["Money washing", "Money drying"];
   //const NewActivities = [];
-
+  // UseEffect(() => {
+  //   //setText(text);
+  //   console.log(text);
+  // },[text])
+  const UpdateSearch = (e) => {
+    setText(e.target.value);
+    console.log(text);
+  }
   return (
     <View style={styles.container}>
       {/* <View>
@@ -39,12 +72,14 @@ function RecordsScreen() {
       </View> */}
       <View>
         {/* <Text>Search</Text> */}
-        {/* <TextInput
+        <TextInput
+          //placeholder = "search here..."
           style={styles.input}
-          onChangeText={setText(text)}
+          onChangeText={UpdateSearch}
           value={text}
-          onFocus={setText("")}
-        />   */}
+          // onFocus={setText("")}
+        />
+
       </View>
       <View style={styles.secondaryContainer}>
         {/* <Text style={styles.titleText2}>Upcoming Activities</Text> */}
