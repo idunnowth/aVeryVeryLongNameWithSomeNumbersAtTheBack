@@ -39,12 +39,12 @@ function RecordsScreen() {
       </View> */}
       <View>
         {/* <Text>Search</Text> */}
-        <TextInput
+        {/* <TextInput
           style={styles.input}
           onChangeText={setText(text)}
           value={text}
           onFocus={setText("")}
-        />
+        />   */}
       </View>
       <View style={styles.secondaryContainer}>
         {/* <Text style={styles.titleText2}>Upcoming Activities</Text> */}
